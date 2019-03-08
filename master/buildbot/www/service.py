@@ -98,14 +98,14 @@ class BuildbotSession(server.Session):
 
         # Make sure we aren't creating a secure session on a non-secure page
         secure = request.isSecure()
-
+        print('request path %s' % request.sitepath)
         if not secure:
             cookieString = b"TWISTED_SESSION"
         else:
             cookieString = b"TWISTED_SECURE_SESSION"
 
         cookiename = b"_".join([cookieString] + request.sitepath)
-        request.addCookie(cookiename, self.uid, path=b"/",
+        request.addCookie(cookiename, self.uid, path=b"/toto",
                           secure=secure)
 
     def expire(self):

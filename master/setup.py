@@ -138,7 +138,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as long_d_f:
 
 setup_args = {
     'name': "buildbot",
-    'version': version,
+    'version': '0.9.12',
     'description': "The Continuous Integration Framework",
     'long_description': long_description,
     'author': "Brian Warner",
