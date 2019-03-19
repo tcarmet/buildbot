@@ -478,7 +478,7 @@ class _SecretRenderer:
 class Secret(_SecretRenderer):
 
     def __repr__(self):
-        return "Secret({0})".format(self.secretKey)
+        return "Secret({0})".format(self.secret_name)
 
 
 class _SecretIndexer:

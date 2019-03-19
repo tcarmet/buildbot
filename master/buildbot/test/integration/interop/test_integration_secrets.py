@@ -21,7 +21,7 @@ from buildbot.process.properties import Interpolate
 from buildbot.reporters.http import HttpStatusPush
 from buildbot.test.fake.secrets import FakeSecretStorage
 from buildbot.test.util.integration import RunMasterBase
-
+from buildbot.plugins import util
 
 class FakeSecretReporter(HttpStatusPush):
     def send(self, build):
@@ -83,6 +83,8 @@ def masterConfig():
     c['secretsProviders'] = [FakeSecretStorage(
         secretdict={"foo": "bar", "something": "more", 'httppasswd': 'myhttppasswd'})]
     f = BuildFactory()
+    secret_foo = util.Secret('foo')
+    f.addStep(steps.ShellCommand(command=['echo', secret_foo]))
     if os.name == "posix":
         f.addStep(steps.ShellCommand(command=Interpolate(
             'echo %(secret:foo)s | sed "s/bar/The password was there/"')))
