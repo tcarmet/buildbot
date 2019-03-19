@@ -480,23 +480,6 @@ class Secret(_SecretRenderer):
     def __repr__(self):
         return "Secret({0})".format(self.secretKey)
 
-    def __init__(self, secretKey):
-        self.secretKey = secretKey
-
-    @defer.inlineCallbacks
-    def getRenderingFor(self, props):
-        secretsSrv = props.master.namedServices.get("secrets")
-        if not secretsSrv:
-            error_message = "secrets service not started, need to configure" \
-                            " SecretManager in c['services'] to use 'secrets'" \
-                            "in Interpolate"
-            raise KeyError(error_message)
-        credsservice = props.master.namedServices['secrets']
-        secret_detail = yield credsservice.get(self.secretKey)
-        if secret_detail is None:
-            raise KeyError("secret key %s is not found in any provider" % self.secretKey)
-        return secret_detail.value
-
 
 class _SecretIndexer:
 
